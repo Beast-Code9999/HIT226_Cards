@@ -4,15 +4,19 @@ function getElemById(id) {
     return document.getElementById(id);
 }
 
+// Allow user to use the scroll function through clicking previous or next buttons
+// Allow user to use the scroll function when dragging scrollbar thumb
 const Slider = (function Slider() {
     const _sliderButtons = document.querySelectorAll(".slider-button");
     const _cards = getElemById("cards--trending");
     const _scrollBar = getElemById("scrollbar");
+    const _scrollBarTrack = getElemById("scrollbar__track")
     const _maxScrollLeft = _cards.scrollWidth - _cards.clientWidth;
     const _scrollBarThumb = getElemById("scrollbar__thumb");
+    let _startX;
+    let _thumbPosition
 
-
-    const _scrollLeftRight = function _scrollLeftRight( twoButtons ) {
+    const _scrollLeftRight = function _scrollLeftRight( twoButtons ) { // scroll left or right depending on button clicked
         twoButtons.forEach( button =>  {
             button.addEventListener('click',() => {
                 const direction = button.id === "button-next" ? 1 : -1; // if button--next direction = 1 else -1
@@ -26,55 +30,69 @@ const Slider = (function Slider() {
         })
     } 
 
-    const _scrollThumbPosition = function _scrollThumbPosition() {
+    const _updateScrollThumbUsingButtons = function _updateScrollThumbUsingButtons() { // update thumb position by clicking buttons
         const scrollPosition = _cards.scrollLeft;
         const thumbPosition = (scrollPosition/_maxScrollLeft) * (_scrollBar.clientWidth - _scrollBarThumb.offsetWidth);
         _scrollBarThumb.style.left = `${thumbPosition}px`;
     }
 
-    const _dragSlider = function _dragSlider() {
+    const _setMouseTracking = function _setMouseTracking(elem, callback) { // tracks mouse movement
+        elem.addEventListener('mousedown', function(event) {
+            _startX = event.clientX
+             _thumbPosition = _scrollBarThumb.offsetLeft; 
+            callback(event);
+            document.addEventListener('mousemove', callback);
+        });
+        document.addEventListener('mouseup', function(event) {
+            document.removeEventListener('mousemove', callback);
+        });
+    };
 
-        _scrollBarThumb.addEventListener("mousedown", updateThumb);
+    const _updateSliderPosition = function _updateSliderPosition( left ) { // update slider thumb
+        _scrollBarThumb.style.left = Math.max( left, -1 ) + 'px';
+    };
 
-        function updateThumb( event ) {
-            const startX = event.clientX;
-            const thumbPosition = _scrollBarThumb.offsetLeft;
+    const _updateCardsScroll = function _updateCardsScroll( position ) {
+        _cards.scrollLeft = position;
+    }
 
-            const mouseMove = event => {
-                const deltaX = event.cleintX - startX;
-                const newThumbspostition = thumbPosition + deltaX
-                _scrollBarThumb.style.left = `${newThumbspostition}px`
-            }
+    const _updateSliderx = function _updateSliderx( event ) {
+        let thumbWidth = _scrollBarThumb.clientWidth
+        let scrollbarWidth = _scrollBarTrack.clientWidth;  
+        const deltaX = event.clientX - _startX; 
+        /* 
+            startX represents the position of cursor (clientX) when event = mousedown
+            deltaX represents the position of cursor (clientX) when event = mousemove minus the previously defined clientX during mousedown event
 
+            This essentially tracks the amount of px to the left (negative) or to the right (positive) of cursor when mouse is moving relative to its original mousedown position
+        */
 
+        const maxChangingPosition = scrollbarWidth - thumbWidth;
+        const newThumbsPostition = _thumbPosition + deltaX
 
-            const handleMouseUp = () => {
-                document.removeEventListener("mousemove", mouseMove)
-                document.removeEventListener("mouseup", handleMouseUp)
-            }
-            
-            document.addEventListener("mousemove", mouseMove);
-            document.addEventListener("mouseup", handleMouseUp)
-            console.log(startX)
-        }
-    } 
+        const x = Math.max(0, Math.min(maxChangingPosition, newThumbsPostition )) // x position in px for scrollBarThumb
+                
+        const position = (x / maxChangingPosition) * _maxScrollLeft;
+       
+        _updateCardsScroll( position )
+        _updateSliderPosition( x );
+    };
 
     const _updateSlider = function updateSlider() {
         _scrollLeftRight( _sliderButtons );
-        _dragSlider();
-       
+        _setMouseTracking(  _scrollBarThumb, _updateSliderx );
+
        _cards.addEventListener("scroll", ()=> {
-            _scrollThumbPosition();
+            _updateScrollThumbUsingButtons();
        })
-        // _maxMinButtonPopup()
     };
 
     const init = function init() {
         _updateSlider();
      };
  
-     return {
-         init: init,
+    return {
+        init: init,
      };
 })();
 
