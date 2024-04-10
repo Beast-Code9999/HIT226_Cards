@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
     <title>Cards</title>
 </head>
 <body>
@@ -17,7 +17,8 @@
             <h1 class="section__heading">Trending</h1>
             <div class="container container--trending">
                 <div class="container__wrapper">
-                    <div class="cards--trending margin-bottom-medium">
+                    <button class="slider-button slider-button--previous" id="button-previous"><span>&#8249;</span></button>
+                    <div class="cards--trending margin-bottom-medium" id="cards--trending">
                         <div class="card card--1">
                             <div class="card--front">
                                 <img class="card__img" src="./img/chow-mein.jpg" alt="chow-mein">
@@ -120,6 +121,7 @@
                             </div>
                         </div>
                     </div>
+                    <button class="slider-button slider-button--next" id="button-next"><span>&#8250;</span></button>
                     <div class="scrollbar">
                         <div class="scrollbar__track">
                             <div class="scrollbar__thumb"></div>
