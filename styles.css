@@ -38,3 +38,15 @@ body {
     background-color: lightblue;
 
 }
+
+
+/* margin sizings */
+.margin-bottom-small {
+    margin-bottom: 1rem;
+}
+.margin-bottom-medium {
+    margin-bottom: 2rem;
+}
+.margin-bottom-big {
+    margin-bottom: 6rem;
+}
