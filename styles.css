@@ -31,13 +31,112 @@ body {
     padding: 10rem 2rem;
     background-color: pink;
 }
+/* section header */
+.section__heading {
+    font-size: 8rem;
+}
 
+/* section trending */
 .section--trending {
     width: 100%;
-    height: 40vh;
+    height: 100vh;
     background-color: lightblue;
+    padding: 20rem 0;
+}
+
+.container {
+    /* max-width: 1200px; */
+    width: 95%;
+    padding: 0 25rem;
+    background-color: yellow;
+}
+
+/* Trending cards css */
+.container .cards {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(10, 1fr);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+.container .cards::-webkit-scrollbar {
+    /* for apple browsers */
+    display: none;
+}
+
+/* scrollbar */
+.scrollbar {
+    height: 2rem;
+    width: 100%;
+    background-color: red;
+    display: flex;
+    align-items: center;
+}
+.scrollbar__track {
+    height: 2px;
+    width: 100%;
+    background-color: #ccc;
+}
+/* resuable cards css and animation*/
+.card__item {
+    /* background-color: orangered; */
+
+    /* to make the card seems like it is rotating with slight angle */
+    perspective: 200rem;
+    -moz-perspective: 200rem;
+    position: relative;
+    width: 35rem;
+    height: 50rem;
+    object-fit: cover;
+}
+.card__item--back, 
+.card__item--front {
+    /* hide the back side of the card */
+    backface-visibility: hidden;
+    box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, .2);
+    border-radius: 2rem;
+
+    height: 50rem;
+    background-color: orange;
+    color: white;
+    font-size: 3rem;
+    transition: all .7s ease;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
 
 }
+.card__item--front {
+    background-color: var(--color-secondary);
+}
+.card__item--back {
+    background-color: var(--color-secondary);
+
+    transform: rotateY(180deg);
+}
+.card__item:hover {
+    cursor: pointer;
+}
+.card__item:hover .card__item--front {
+    transform: rotateY(-180deg);
+}
+.card__item:hover .card__item--back {
+    transform: rotateY(0);
+}
+
+.card__item--svg {
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    bottom: 0rem;
+    left: 0;
+}
+.card__item--img {
+    top: 0;
+    width: 100%;
+}
+
 
 
 /* margin sizings */
@@ -49,15 +148,4 @@ body {
 }
 .margin-bottom-big {
     margin-bottom: 6rem;
-}
-
-
-.container {
-
-}
-.cards {
-
-}
-.card__item {
-
 }
