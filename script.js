@@ -14,27 +14,7 @@ const Slider = (function Slider() {
     const _maxScrollLeft = _cards.scrollWidth - _cards.clientWidth;
     const _scrollBarThumb = getElemById("scrollbar__thumb");
     let _startX;
-    let _thumbPosition
-
-    const _scrollLeftRight = function _scrollLeftRight( twoButtons ) { // scroll left or right depending on button clicked
-        twoButtons.forEach( button =>  {
-            button.addEventListener('click',() => {
-                const direction = button.id === "button-next" ? 1 : -1; // if button--next direction = 1 else -1
-                const scrollAmount = _cards.clientWidth * direction; // if direction = 1, clientWidth is positive else negative 
-                // using scrollBy() method to add scroll functionaility
-                _cards.scrollBy({
-                    left: scrollAmount,
-                    behavior: "smooth",
-                })  
-            })
-        })
-    } 
-
-    const _updateScrollThumbUsingButtons = function _updateScrollThumbUsingButtons() { // update thumb position by clicking buttons
-        const scrollPosition = _cards.scrollLeft;
-        const thumbPosition = (scrollPosition/_maxScrollLeft) * (_scrollBar.clientWidth - _scrollBarThumb.offsetWidth);
-        _scrollBarThumb.style.left = `${thumbPosition}px`;
-    }
+    let _thumbPosition;
 
     const _setMouseTracking = function _setMouseTracking(elem, callback) { // tracks mouse movement
         elem.addEventListener('mousedown', function(event) {
@@ -52,11 +32,11 @@ const Slider = (function Slider() {
         _scrollBarThumb.style.left = Math.max( left, -1 ) + 'px';
     };
 
-    const _updateCardsScroll = function _updateCardsScroll( position ) {
+    const _updateCardsScroll = function _updateCardsScroll( position ) { // update scroll positioning in px for cards
         _cards.scrollLeft = position;
     }
 
-    const _updateSliderx = function _updateSliderx( event ) {
+    const _updateSliderThumbAndCards = function _updateSliderThumbAndCards( event ) {
         let thumbWidth = _scrollBarThumb.clientWidth
         let scrollbarWidth = _scrollBarTrack.clientWidth;  
         const deltaX = event.clientX - _startX; 
@@ -74,13 +54,32 @@ const Slider = (function Slider() {
                 
         const position = (x / maxChangingPosition) * _maxScrollLeft;
        
-        _updateCardsScroll( position )
         _updateSliderPosition( x );
+        _updateCardsScroll( position )
     };
 
+    const _scrollLeftRightUsingButtons = function _scrollLeftRightUsingButtons( twoButtons ) { // scroll left or right depending on button clicked
+        twoButtons.forEach( button =>  {
+            button.addEventListener('click',() => {
+                const direction = button.id === "button-next" ? 1 : -1; // if button--next direction = 1 else -1
+                const scrollAmount = _cards.clientWidth * direction; // if direction = 1, clientWidth is positive else negative 
+                _cards.scrollBy({ // using scrollBy() method to add scroll functionaility
+                    left: scrollAmount,
+                    behavior: "smooth",
+                })  
+            })
+        })
+    } 
+
+    const _updateScrollThumbUsingButtons = function _updateScrollThumbUsingButtons() { // update thumb position by clicking buttons
+        const scrollPosition = _cards.scrollLeft;
+        const thumbPosition = (scrollPosition/_maxScrollLeft) * (_scrollBar.clientWidth - _scrollBarThumb.offsetWidth);
+        _scrollBarThumb.style.left = `${thumbPosition}px`;
+    }
+
     const _updateSlider = function updateSlider() {
-        _scrollLeftRight( _sliderButtons );
-        _setMouseTracking(  _scrollBarThumb, _updateSliderx );
+        _scrollLeftRightUsingButtons( _sliderButtons );
+        _setMouseTracking(  _scrollBarThumb, _updateSliderThumbAndCards );
 
        _cards.addEventListener("scroll", ()=> {
             _updateScrollThumbUsingButtons();
