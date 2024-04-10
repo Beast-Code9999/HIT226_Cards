@@ -39,9 +39,12 @@ body {
 /* section trending */
 .section--trending {
     width: 100%;
-    height: 100vh;
+    height: auto;
     background-color: lightblue;
     padding: 20rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .container {
@@ -49,15 +52,17 @@ body {
     width: 95%;
     padding: 0 25rem;
     background-color: yellow;
+    align-self: center;
 }
 
 /* Trending cards css */
-.container .cards {
+.container .cards--trending {
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(10, 1fr);
     overflow-x: auto;
     overflow-y: hidden;
+    padding: 3rem;
     scrollbar-width: none;
 }
 .container .cards::-webkit-scrollbar {
@@ -78,6 +83,20 @@ body {
     width: 100%;
     background-color: #ccc;
 }
+
+
+/* Section recipes */
+.section--recipes {
+    width: auto;
+    height: 100vh;
+    background-color: orangered;
+}
+.cards--recipes {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+}
+
 /* resuable cards css and animation*/
 .card__item {
     /* background-color: orangered; */
@@ -105,6 +124,8 @@ body {
     overflow: hidden;
     position: absolute;
     width: 100%;
+    user-select: none;
+
 
 }
 .card__item--front {
@@ -131,10 +152,12 @@ body {
     z-index: 100;
     bottom: 0rem;
     left: 0;
+    user-select: none;
 }
 .card__item--img {
     top: 0;
     width: 100%;
+    user-select: none;
 }
 
 
