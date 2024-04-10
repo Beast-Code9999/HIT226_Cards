@@ -47,13 +47,7 @@ body {
     justify-content: center;
 }
 
-.container {
-    /* max-width: 1200px; */
-    width: 95%;
-    padding: 0 25rem;
-    background-color: yellow;
-    align-self: center;
-}
+
 
 /* Trending cards css */
 .container .cards--trending {
@@ -74,22 +68,50 @@ body {
 .scrollbar {
     height: 2rem;
     width: 100%;
-    background-color: red;
+    /* background-color: red; */
     display: flex;
     align-items: center;
 }
 .scrollbar__track {
-    height: 2px;
+    height: 4px;
     width: 100%;
     background-color: #ccc;
+    position: relative;
+    border-radius: 2px;
+}
+.scrollbar:hover .scrollbar__track {
+    height: 6px;
 }
 
+.scrollbar__thumb {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    background-color: black;
+    border-radius: inherit;
+    cursor: grab;
+}
+.scrollbar__thumb::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -10px;
+    bottom: -10px;
+}
+.scrollbar__thumb:active {
+    cursor: grabbing;
+    height: 8px;
+    top: -2px;
+}
 
 /* Section recipes */
 .section--recipes {
     width: auto;
     height: 100vh;
     background-color: orangered;
+    display: flex;
+    flex-direction: column;
 }
 .cards--recipes {
     display: grid;
@@ -97,8 +119,25 @@ body {
     grid-template-columns: repeat(4, 1fr);
 }
 
+.container--recipes {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
+
+.container {
+    /* max-width: 1200px; */
+    width: 95%;
+    padding: 0 25rem;
+    background-color: yellow;
+    align-self: center;
+}
 /* resuable cards css and animation*/
-.card__item {
+.card {
     /* background-color: orangered; */
 
     /* to make the card seems like it is rotating with slight angle */
@@ -109,8 +148,8 @@ body {
     height: 50rem;
     object-fit: cover;
 }
-.card__item--back, 
-.card__item--front {
+.card--back, 
+.card--front {
     /* hide the back side of the card */
     backface-visibility: hidden;
     box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, .2);
@@ -128,25 +167,25 @@ body {
 
 
 }
-.card__item--front {
+.card--front {
     background-color: var(--color-secondary);
 }
-.card__item--back {
+.card--back {
     background-color: var(--color-secondary);
 
     transform: rotateY(180deg);
 }
-.card__item:hover {
+.card:hover {
     cursor: pointer;
 }
-.card__item:hover .card__item--front {
+.card:hover .card--front {
     transform: rotateY(-180deg);
 }
-.card__item:hover .card__item--back {
+.card:hover .card--back {
     transform: rotateY(0);
 }
 
-.card__item--svg {
+.card__svg {
     position: absolute;
     width: 100%;
     z-index: 100;
@@ -154,14 +193,11 @@ body {
     left: 0;
     user-select: none;
 }
-.card__item--img {
+.card__img {
     top: 0;
     width: 100%;
     user-select: none;
 }
-
-
-
 /* margin sizings */
 .margin-bottom-small {
     margin-bottom: 1rem;

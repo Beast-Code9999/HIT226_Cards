@@ -2,7 +2,7 @@
 
 Images credits:  
 
-Miso Soup: Photo by M4rtine: https://pixabay.com/users/m4rtine-5674030/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2499643 
+Miso Soup: Photo by M4rtine: Photo by Julias  Torten und Törtchen from Pexels: https://www.pexels.com/photo/bowls-of-miso-soup-and-rice-15881377/  
 
 Chow Mein: Photo by bishop tamrakar: https://www.pexels.com/photo/white-ceramic-bowl-with-pasta-dish-3926135/ 
 
