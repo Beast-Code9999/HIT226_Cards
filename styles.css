@@ -53,7 +53,11 @@ body {
 .section--trending {
     background-color: white;
 }
-
+.container--trending {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /* Trending cards css */
 .container .cards--trending {
     display: grid;
@@ -70,6 +74,7 @@ body {
 }
 .container__wrapper {
     position: relative;
+    width: 120rem;
 }
 /* Previous and next buttons */
 .slider-button {
@@ -176,7 +181,6 @@ body {
     backface-visibility: hidden;
     box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, .2);
     border-radius: 2rem;
-
     height: 50rem;
     color: white;
     font-size: 3rem;
@@ -235,38 +239,88 @@ body {
 }
 /* 1700px */
 @media (max-width: 106.25rem ) {
-
-
     .cards--recipes {
         display: grid;
         gap: 4rem;
         grid-template-columns: repeat(3, 1fr);
     }
 }
+/* 1400px */ 
+@media (max-width: 87.5rem) {
+    .container__wrapper {
+        width: 100rem;
+    }
+    .scrollbar__thumb {
+        width: 40%;
+    }
+}
 /* 1300px */
 @media (max-width: 81.25rem ) { 
-
     .cards--recipes {
         display: grid;
         gap: 6rem;
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+/* 1200px */ 
+@media (max-width: 75rem) {
+    .container__wrapper {
+        width: 80rem;
+    }
+    .scrollbar__thumb {
+        width: 35%;
     }
 }
 /* 1000px */
 @media (max-width: 62.25rem ) { 
 
-    .cards--recipes {
-        display: grid;
-        gap: 6rem;
-        grid-template-columns: repeat(2, 1fr);
+    .slider-button {
+        display: none;
+    }
+    .container__wrapper {
+        width: 38rem;
+    }
+    .scrollbar__thumb {
+        width: 20%;
     }
 }
-/* 900 */
+/* 900px */
 @media (max-width: 56.25rem ) {
+    .container--trending {
+        padding: 0 2rem;
 
+    }
     .cards--recipes {
         display: grid;
-        gap: 8rem;
+        gap: 5rem;
         grid-template-columns: repeat(1, 1fr);
     }
 }
+/* 700px */
+@media (max-width: 43.75rem ) {
+    .section__heading {
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+        font-size: 7rem;
+    }
+    .section {
+        margin-bottom: 0rem;
+    }
+    .svg-divider {
+        bottom: -2rem;
+    }
+}
+/* 400px */
+@media (max-width: 25rem ) {
+    .section__heading {
+        font-size: 6rem;
+    }
+    .card {
+        width: 30rem;
+    }
+    .container__wrapper {
+        width: 32rem;
+    }
+}
+
