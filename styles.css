@@ -228,6 +228,7 @@ body {
 }
 .card--front__heading {
     font-size: 3rem;
+    font-weight: 700;
     color: var(--color-text-dark);
 }
 .card--front__time img {
